@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<title>Editar evento</title>
+</head>
+<body>
+	
+	<div class="container mt-5">
+	    <form class="border border-dark-subtle rounded bg-light p-4" th:action="@{/eventos/editar/{idEvento}(idEvento=${evento.idEvento})}" method="post">
+	        <fieldset>
+	            <legend class="text-primary">Editar evento</legend>
+
+	            <!-- Nombre -->
+	            <div class="mb-3">
+	                <label for="nombre" class="form-label">Nombre:</label>
+	                <input type="text" th:value="${evento.nombre}" class="form-control" id="nombre" name="nombre" required>
+	            </div>
+
+	            <!-- Descripcion -->
+	            <div class="mb-3">
+	                <label for="descripcion" class="form-label">Descripcion:</label>
+	                <input type="text" th:value="${evento.descripcion}" class="form-control" id="descripcion" name="descripcion" required>
+	            </div>
+
+	            <!-- Fecha de Inicio -->
+	            <div class="mb-3">
+	                <label for="fechaInicio" class="form-label">Fecha de Inicio:</label>
+	                <input type="date" th:value="${evento.fechaInicio}" class="form-control" id="fechaInicio" name="fechaInicio" required>
+	            </div>
+
+	            <!-- Duracion -->
+	            <div class="mb-3">
+	                <label for="duracion" class="form-label">Duracion (en horas):</label>
+	                <input type="number" th:value="${evento.duracion}" class="form-control" id="duracion" name="duracion" min="0" required>
+	            </div>
+
+	            <!-- Direccion -->
+	            <div class="mb-3">
+	                <label for="direccion" class="form-label">Direccion:</label>
+	                <input type="text" th:value="${evento.direccion}" class="form-control" id="direccion" name="direccion" required>
+	            </div>
+				
+	            <!-- Estado -->
+	            <div class="mb-3">
+	                <label for="estado" class="form-label">Estado:</label>
+	                <select class="form-select" id="estado" name="estado" required>
+	                    <option value="" selected disabled>Seleccione un estado</option>
+	                    <option value="ACEPTADO" th:selected="${evento.estado == 'ACEPTADO'}">ACTIVO</option>
+	                    <option value="TERMINADO" th:selected="${evento.estado == 'TERMINADO'}">TERMINADO</option>
+	                    <option value="CANCELADO" th:selected="${evento.estado == 'CANCELADO'}">CANCELADO</option>
+	                </select>
+	            </div>
+				
+	            <!-- Destacado -->
+	            <div class="mb-3">
+	                <label for="destacado" class="form-label">Destacado:</label>
+	                <select class="form-select" id="destacado" name="destacado" required>
+	                    <option value="" selected disabled>Seleccione una opcion</option>
+	                    <option value="S" th:selected="${evento.destacado == 'S'}">Si</option>
+	                    <option value="N" th:selected="${evento.destacado == 'N'}">No</option>
+	                </select>
+	            </div>
+
+	            <!-- Aforo Maximo -->
+	            <div class="mb-3">
+	                <label for="aforoMaximo" class="form-label">Aforo Maximo:</label>
+	                <input type="number" th:value="${evento.aforoMaximo}"  class="form-control" id="aforoMaximo" name="aforoMaximo" min="0" required>
+	            </div>
+
+	            <!-- Minimo de Asistencia -->
+	            <div class="mb-3">
+	                <label for="minimoAsistencia" class="form-label">Minimo de Asistencia:</label>
+	                <input type="number" th:value="${evento.minimoAsistencia}"  class="form-control" id="minimoAsistencia" name="minimoAsistencia" min="0" required>
+	            </div>
+
+	            <!-- Precio -->
+	            <div class="mb-3">
+	                <label for="precio" class="form-label">Precio:</label>
+	                <input type="number" th:value="${evento.precio}"  class="form-control" id="precio" name="precio" min="0" step="0.01" required>
+	            </div>
+	            
+	            <div class="mb-3">
+	                <label for="tipo" class="form-label">Tipo de Evento:</label>
+	                <select class="form-select" id="tipo" name="tipo" required>
+	                    <option value="" selected disabled>Seleccione un tipo</option>
+	                    <option th:each="tipo : ${tipos}" th:selected="${tipo.idTipo == evento.tipo.idTipo}" th:value="${tipo.idTipo}" th:text="${tipo.nombre}"></option>
+	                </select>
+	            </div>
+
+	            
+
+	            <!-- Botones -->
+	            <div class="d-flex justify-content-between">
+	                <button type="submit" class="btn btn-primary">Enviar</button>
+	                <button type="reset" class="btn btn-secondary">Borrar Todo</button>
+	            </div>
+	        </fieldset>
+	    </form>
+
+	    <!-- Boton Volver -->
+	    <div class="mt-3 mb-3">
+	        <a th:href="@{/home}" class="btn btn-secondary">Volver</a>
+	    </div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
